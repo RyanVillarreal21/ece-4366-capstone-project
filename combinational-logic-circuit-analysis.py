@@ -84,13 +84,26 @@ def evalExpress(expr):
         elif(expr[i + 1] == 'Z'):
             i = i + 1
             continue
+        elif(expr[i + 1] == '+'):
+            i = i + 1
+            continue
+        elif(expr[i + 1] == "'"):
+            i = i + 1
+            continue
+        elif(expr[i + 1] == "("):
+            i = i + 1
+            continue
+        elif(expr[i + 1] == ")"):
+            i = i + 1
+            continue
         else:
             if(expr[i + 1] != ''):
                 expr = input("Invalid boolean expression. Please enter another: ")
                 evalExpress(expr)
             else:
+                print("Evaluation success")
                 break
-    return
+
 
 expr = input("Enter a boolean expression: ")
 evalExpress(expr)
