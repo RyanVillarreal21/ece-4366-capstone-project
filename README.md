@@ -1,1 +1,1 @@
-# ece-4366-capstone-exam
+# ece-4366-capstone-project
