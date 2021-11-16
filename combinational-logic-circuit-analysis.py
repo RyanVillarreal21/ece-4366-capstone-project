@@ -1,7 +1,7 @@
 import math as mt
 import string as st
 
-def evalExpress(expr):
+def checkExpress(expr):
     n = len(expr)
     i = 0
     #print(n)
@@ -99,12 +99,50 @@ def evalExpress(expr):
         else:
             if(expr[i + 1] != ''):
                 expr = input("Invalid boolean expression. Please enter another: ")
-                evalExpress(expr)
+                checkExpress(expr)
             else:
                 print("Evaluation success")
                 break
 
+def evaluate(arr, x, y):
+    n = len(arr)
+    l = x
+    j = y
+    orGat = 0
+    andGat = 0
+    notGat = 0
+
+    while(l < n):
+        if(arr[l] == "("):
+            while(arr[l] == "(" & arr[j] != ")"):
+                if(arr[j] == "+"):
+                    ordGat = ordGat + 1
+                    j = j + 1
+                    continue
+                elif(arr[j] == "'"):
+                    notGat = notGat + 1
+                    j = j + 1
+                    continue
+                elif(arr[j] == ")"):
+                    return evaluate(arr, l, j)
+                else:
+                    andGat = andGat + 1
+                    j = j + 1
+
+        elif(arr[l] == "+"):
+            orGat = orGat + 1
+            l = l + 1
+            continue
+        elif(arr[l] == "'"):
+            notGat = notGat + 1
+            l = l + 1
+        else:
+            andGat = andGat + 1
+            l = l + 1
+            continue
 
 expr = input("Enter a boolean expression: ")
-evalExpress(expr)
+checkExpress(expr)
+arr = str.split(expr)
+evaluate(arr, 0, 0)
 #print(expr)
