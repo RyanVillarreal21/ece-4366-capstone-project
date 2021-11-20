@@ -154,11 +154,21 @@ def andSym(expr):
     n = len(expr)
     i = 0
     for i in range(0, n - 2, 2):
-        if(expr[i + 1] == "+" or "'" or "(" or ")"):
+        if(expr[i + 1] == "+"):
+            i += 1
+            continue
+        elif(expr[i + 1] == "'"):
+            i += 1
+            continue
+        elif(expr[i + 1] == "("):
+            i += 1
+            continue
+        elif(expr[i + 1] == ")"):
             i += 1
             continue
         else:
-            expr = expr[:i] + "*" + expr[i:]
+            expr = expr[:i] + '*' + expr[i:]
+            #res = "".join((expr[:i], '*', expr[i:]))
             i += 1
             continue
     return expr
@@ -191,10 +201,6 @@ def infix_to_postfix(expr): #input expression
 
 expr = input("Enter a boolean expression: ")
 checkExpress(expr)
-andSym(expr)
 print('Infix expression: ',expr)
-print('Postfix expression: ',infix_to_postfix(expr))
-
-#arr = str.split(expr)
-#infixToPostfix(len(expr), expr)
-#print(expr)
+result = andSym(expr)
+print('Postfix expression: ',infix_to_postfix(result))
