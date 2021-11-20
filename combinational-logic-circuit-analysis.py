@@ -153,7 +153,7 @@ def checkExpress(expr):
 def andSym(expr):
     n = len(expr)
     i = 0
-    for i in range(0, n - 2, 2):
+    for i in range(0, n, 2):
         if(expr[i + 1] == "+"):
             i += 1
             continue
