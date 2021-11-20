@@ -105,12 +105,12 @@ def checkExpress(expr):
             #     print("Evaluation success")
             #     break
     return expr
-    # match = re.findall(r"[A-Z]", expr)
-    # if match:
-    #     return expr
-    # else:
-    #     expr = input("Invalid boolean expression. Please enter another: ")
-    #     checkExpress(expr)
+#     match = re.findall(r"[A-Z]", expr)
+#     if match:
+#         return expr
+#     else:
+#         expr = input("Invalid boolean expression. Please enter another: ")
+#         checkExpress(expr)
 
 #def evaluate(arr, x, y):
     # stack = []
@@ -158,13 +158,13 @@ def andSym(expr):
             i += 1
             continue
         else:
-            expr[i + 1].append("*")
+            expr = expr[:i] + "*" + expr[i:]
             i += 1
             continue
     return expr
 
 OPERATORS = set(['+', '*', "'", '(', ')'])  # set of operators
-PRIORITY = {'+':1, '*':1,"'":2} # dictionary having priorities 
+PRIORITY = {'+':1, '*':2,"'":3} # dictionary having priorities 
 
 def infix_to_postfix(expr): #input expression
     stack = [] # initially stack empty
@@ -192,8 +192,8 @@ def infix_to_postfix(expr): #input expression
 expr = input("Enter a boolean expression: ")
 checkExpress(expr)
 andSym(expr)
-print('infix expression: ',expr)
-print('postfix expression: ',infix_to_postfix(expr))
+print('Infix expression: ',expr)
+print('Postfix expression: ',infix_to_postfix(expr))
 
 #arr = str.split(expr)
 #infixToPostfix(len(expr), expr)
