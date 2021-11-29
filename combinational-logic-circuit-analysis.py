@@ -150,57 +150,102 @@ def checkExpress(expr):
     #         l = l + 1
     #         continue
 
+OPERATORS = ['+', '*', "'", '(', ')']  # set of operators
+PRIORITY = {'+':1, '*':1,"'":2} # dictionary having priorities 
+
 def andSym(expr):
-    n = len(expr)
-    i = 0
-    for i in range(0, n, 2):
-        if(expr[i + 1] == "+"):
-            i += 1
+    new_expr = []
+    result = ''
+
+    for i in range(len(expr)):
+        if(expr[i] not in OPERATORS and expr[i + 1] not in OPERATORS):
+            #new_expr = new_expr[:i + 1] + '*' + new_expr[i + 1:]
+            new_expr += expr[i]
+            new_expr.append("*")
+            # i += 1
             continue
-        elif(expr[i + 1] == "'"):
-            i += 1
+        elif(expr[i] not in OPERATORS and expr[i + 1] == "("):
+            #new_expr = new_expr[:i + 1] + '*' + new_expr[i + 1:]
+            new_expr += expr[i]
+            new_expr.append("*")
+            # i += 1
             continue
-        elif(expr[i + 1] == "("):
-            i += 1
+        elif(expr[i] not in OPERATORS and expr[i - 1] == ")"):
+            #new_expr = new_expr[:i + 1] + '*' + new_expr[i + 1:]
+            new_expr += expr[i]
+            new_expr.append("*")
+            # i += 1
             continue
-        elif(expr[i + 1] == ")"):
-            i += 1
+        elif(expr[i] not in OPERATORS and expr[i + 1] == "+"):
+            new_expr += expr[i]
+            # i += 1
+            continue
+        elif(expr[i] not in OPERATORS and expr[i + 1] == "'"):
+            new_expr += expr[i]
+            # i += 1
+            continue
+        elif(expr[i] == "'" and expr[i + 1] not in OPERATORS):
+            new_expr += expr[i]
+            new_expr.append("*")
+            # i += 1
             continue
         else:
-            expr = expr[:i] + '*' + expr[i:]
-            #res = "".join((expr[:i], '*', expr[i:]))
-            i += 1
+            new_expr += expr[i]
+            # i += 1
             continue
-    return expr
+    temp = []
+    while new_expr:  #if stack is not empty, reverse the order of stack
+        temp.append(new_expr.pop())
+    for item in temp:
+        new_expr.append(item) #append item to stack
+    while new_expr:
+        result += new_expr.pop()
 
-OPERATORS = set(['+', '*', "'", '(', ')'])  # set of operators
-PRIORITY = {'+':1, '*':2,"'":3} # dictionary having priorities 
+    # for i in range(0, n, 2):
+    #     if(expr[i + 1] == "+"):
+    #         i += 1
+    #         continue
+    #     elif(expr[i + 1] == "'"):
+    #         i += 1
+    #         continue
+    #     elif(expr[i + 1] == "("):
+    #         i += 1
+    #         continue
+    #     elif(expr[i + 1] == ")"):
+    #         i += 1
+    #         continue
+    #     else:
+    #         expr = expr[:i] + '*' + expr[i:]
+    #         #res = "".join((expr[:i], '*', expr[i:]))
+    #         i += 1
+    #         continue
+    return result
 
 def infix_to_postfix(expr): #input expression
     stack = [] # initially stack empty
-    output = '' # initially output empty
+    postfix = '' # initially output empty
 
     for ch in expr:
         if(ch not in OPERATORS):  # if an operand then put it directly in postfix expression
-            output+= ch
+            postfix += ch
         elif(ch == '('):  # else operators should be put in stack
             stack.append('(')
         elif(ch == ')'):
             while(stack and stack[-1] != '('):
-                output += stack.pop()
+                postfix += stack.pop()
             stack.pop()
         else:
             # lesser priority can't be on top on higher or equal priority    
              # so pop and put in output   
             while(stack and stack[-1] != '(' and PRIORITY[ch] <= PRIORITY[stack[-1]]):
-                output += stack.pop()
+                postfix += stack.pop()
             stack.append(ch)
     while stack:
-        output += stack.pop()
-    return output
+        postfix += stack.pop()
+    return postfix
 
 expr = input("Enter a boolean expression: ")
 checkExpress(expr)
-print('Infix expression: ',expr)
-result = andSym(expr)
-print('Postfix expression: ',infix_to_postfix(result))
+infix = andSym(expr)
+print("Infix expression: ", infix)
+print("Postfix expression: ",infix_to_postfix(infix))
