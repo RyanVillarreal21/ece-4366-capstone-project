@@ -4,113 +4,76 @@ import re
 
 def checkExpress(expr):
     n = len(expr)
-    i = 0
     #print(n)
-    for i in range(0, n - 2, 2):
-        if(expr[i + 1] == 'A'):
-            i = i + 1
+    for i in range(n):
+        if(expr[i] == 'A'):
             continue
-        elif(expr[i + 1] == 'B'):
-            i = i + 1
+        elif(expr[i] == 'B'):
             continue
-        elif(expr[i + 1] == 'C'):
-            i = i + 1
+        elif(expr[i] == 'C'):
             continue
-        elif(expr[i + 1] == 'D'):
-            i = i + 1
+        elif(expr[i] == 'D'):
             continue
-        elif(expr[i + 1] == 'E'):
-            i = i + 1
+        elif(expr[i] == 'E'):
             continue
-        elif(expr[i + 1] == 'F'):
-            i = i + 1
+        elif(expr[i] == 'F'):
             continue
-        elif(expr[i + 1] == 'G'):
-            i = i + 1
+        elif(expr[i] == 'G'):
             continue
-        elif(expr[i + 1] == 'H'):
-            i = i + 1
+        elif(expr[i] == 'H'):
             continue
-        elif(expr[i + 1] == 'I'):
-            i = i + 1
+        elif(expr[i] == 'I'):
             continue
-        elif(expr[i + 1] == 'J'):
-            i = i + 1
+        elif(expr[i] == 'J'):
             continue
-        elif(expr[i + 1] == 'K'):
-            i = i + 1
+        elif(expr[i] == 'K'):
             continue
-        elif(expr[i + 1] == 'L'):
-            i = i + 1
+        elif(expr[i] == 'L'):
             continue
-        elif(expr[i + 1] == 'M'):
-            i = i + 1
+        elif(expr[i] == 'M'):
             continue
-        elif(expr[i + 1] == 'N'):
-            i = i + 1
+        elif(expr[i] == 'N'):
             continue
-        elif(expr[i + 1] == 'O'):
-            i = i + 1
+        elif(expr[i] == 'O'):
             continue
-        elif(expr[i + 1] == 'P'):
-            i = i + 1
+        elif(expr[i] == 'P'):
             continue
-        elif(expr[i + 1] == 'Q'):
-            i = i + 1
+        elif(expr[i] == 'Q'):
             continue
-        elif(expr[i + 1] == 'R'):
-            i = i + 1
+        elif(expr[i] == 'R'):
             continue
-        elif(expr[i + 1] == 'S'):
-            i = i + 1
+        elif(expr[i] == 'S'):
             continue
-        elif(expr[i + 1] == 'T'):
-            i = i + 1
+        elif(expr[i] == 'T'):
             continue
-        elif(expr[i + 1] == 'U'):
-            i = i + 1
+        elif(expr[i] == 'U'):
             continue
-        elif(expr[i + 1] == 'V'):
-            i = i + 1
+        elif(expr[i] == 'V'):
             continue
-        elif(expr[i + 1] == 'W'):
-            i = i + 1
+        elif(expr[i] == 'W'):
             continue
-        elif(expr[i + 1] == 'X'):
-            i = i + 1
+        elif(expr[i] == 'X'):
             continue
-        elif(expr[i + 1] == 'Y'):
-            i = i + 1
+        elif(expr[i] == 'Y'):
             continue
-        elif(expr[i + 1] == 'Z'):
-            i = i + 1
+        elif(expr[i] == 'Z'):
             continue
-        elif(expr[i + 1] == '+'):
-            i = i + 1
+        elif(expr[i] == '+'):
             continue
-        elif(expr[i + 1] == "'"):
-            i = i + 1
+        elif(expr[i] == "'"):
             continue
-        elif(expr[i + 1] == "("):
-            i = i + 1
+        elif(expr[i] == "("):
             continue
-        elif(expr[i + 1] == ")"):
-            i = i + 1
+        elif(expr[i] == ")"):
             continue
         else:
-            if(expr[i + 1] != ''):
-                expr = input("Invalid boolean expression. Please enter another: ")
-                checkExpress(expr)
+            # if(expr[i] != ''):
+            expr = input("Invalid boolean expression. Please enter another: ")
+            checkExpress(expr)
             # else:
             #     print("Evaluation success")
             #     break
     return expr
-#     match = re.findall(r"[A-Z]", expr)
-#     if match:
-#         return expr
-#     else:
-#         expr = input("Invalid boolean expression. Please enter another: ")
-#         checkExpress(expr)
 
 #def evaluate(arr, x, y):
     # stack = []
@@ -157,9 +120,8 @@ def andSym(expr):
     new_expr = []
     result = ''
 
-    for i in range(len(expr)):
+    for i in range(0, len(expr) - 1, 1):
         if(expr[i] not in OPERATORS and expr[i + 1] not in OPERATORS):
-            #new_expr = new_expr[:i + 1] + '*' + new_expr[i + 1:]
             new_expr += expr[i]
             new_expr.append("*")
             # i += 1
@@ -170,7 +132,7 @@ def andSym(expr):
             new_expr.append("*")
             # i += 1
             continue
-        elif(expr[i] not in OPERATORS and expr[i - 1] == ")"):
+        elif(expr[i] == ")" and expr[i + 1] not in OPERATORS):
             #new_expr = new_expr[:i + 1] + '*' + new_expr[i + 1:]
             new_expr += expr[i]
             new_expr.append("*")
@@ -178,10 +140,12 @@ def andSym(expr):
             continue
         elif(expr[i] not in OPERATORS and expr[i + 1] == "+"):
             new_expr += expr[i]
+            new_expr.append("")
             # i += 1
             continue
         elif(expr[i] not in OPERATORS and expr[i + 1] == "'"):
             new_expr += expr[i]
+            new_expr.append("")
             # i += 1
             continue
         elif(expr[i] == "'" and expr[i + 1] not in OPERATORS):
@@ -189,10 +153,28 @@ def andSym(expr):
             new_expr.append("*")
             # i += 1
             continue
+        elif(expr[i] == "'" and expr[i + 1] == "("):
+            new_expr += expr[i]
+            new_expr.append("*")
+            # i += 1
+            continue
+        elif(expr[i] == ")" and expr[i + 1] == "+"):
+            #new_expr = new_expr[:i + 1] + '*' + new_expr[i + 1:]
+            new_expr += expr[i]
+            new_expr.append("")
+            # i += 1
+            continue
+        elif(expr[i] == ")" and expr[i + 1] == "'"):
+            #new_expr = new_expr[:i + 1] + '*' + new_expr[i + 1:]
+            new_expr += expr[i]
+            new_expr.append("")
+            # i += 1
+            continue
         else:
             new_expr += expr[i]
             # i += 1
             continue
+    new_expr.insert(len(new_expr), expr[-1])  #Adds the last string index to stack
     temp = []
     while new_expr:  #if stack is not empty, reverse the order of stack
         temp.append(new_expr.pop())
