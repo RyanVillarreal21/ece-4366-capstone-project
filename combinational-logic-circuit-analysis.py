@@ -2,7 +2,7 @@ import math as mt
 import string as st
 import re
 
-def checkExpress(expr):
+def checkExpress(expr):   #The function ensures user only enters specific characters
     n = len(expr)
     #print(n)
     for i in range(n):
@@ -116,7 +116,7 @@ def checkExpress(expr):
 OPERATORS = ['+', '*', "'", '(', ')']  # set of operators
 PRIORITY = {'+':1, '*':1,"'":2} # dictionary having priorities 
 
-def andSym(expr):
+def andSym(expr):  #This action is used to add the symbol * for AND logic
     new_expr = []
     result = ''
 
