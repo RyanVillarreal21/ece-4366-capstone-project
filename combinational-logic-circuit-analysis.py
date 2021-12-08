@@ -1,7 +1,10 @@
+#Created by Ryan Villarreal
+
 import math as mt
 import string as st
 import re
 from collections import deque
+from faults import findFaults
 
 # Data structure to store a binary tree node
 class node:
@@ -79,44 +82,6 @@ def checkExpress(expr):
             print("Invalid boolean expression. Please restart program.")
             exit()
     return expr
-
-#def evaluate(arr, x, y):
-    # stack = []
-    # n = len(arr)
-    # l = x
-    # j = y
-    # orGat = 0
-    # andGat = 0
-    # notGat = 0
-
-    # while(l < n):
-    #     if(arr[l] == "("):
-    #         while(arr[l] == "(" & arr[j] != ")"):
-    #             if(arr[j] == "+"):
-    #                 ordGat = ordGat + 1
-    #                 j = j + 1
-    #                 continue
-    #             elif(arr[j] == "'"):
-    #                 notGat = notGat + 1
-    #                 j = j + 1
-    #                 continue
-    #             elif(arr[j] == ")"):
-    #                 return evaluate(arr, l, j)
-    #             else:
-    #                 andGat = andGat + 1
-    #                 j = j + 1
-
-    #     elif(arr[l] == "+"):
-    #         orGat = orGat + 1
-    #         l = l + 1
-    #         continue
-    #     elif(arr[l] == "'"):
-    #         notGat = notGat + 1
-    #         l = l + 1
-    #     else:
-    #         andGat = andGat + 1
-    #         l = l + 1
-    #         continue
 
 OPERATORS = ['+', '*', "'", '(', ')']  # set of operators
 PRIORITY = {'+':1, '*':1,"'":2} # dictionary having priorities 
@@ -223,15 +188,6 @@ def infix_to_postfix(expr): #input expression converted to postfix
 #         p.right,q = add(q)
 #         return p,q
 
-# # Function to print the postfix expression for the tree
-# def postr(p):
-#     if(p == None):
-#         return
-#     else:
-#         postr(p.left)
-#         postr(p.right)
-#         print(p.data,end = ' ')
-
 # # Function to construct an expression tree from the given postfix expression
 # def construct(post):
 #     root = None
@@ -288,13 +244,22 @@ if __name__ == '__main__':
     expr = input("Enter a boolean expression [please include () wherever possible]: ")
     checkExpress(expr)
 
+    #Sends boolean expression to be adjusted before being converted to postfix
     infix = andSym(expr)
     print("Infix expression: ", infix)
     post = infix_to_postfix(infix)
     print("Postfix expression: ", post)
-    # s,post = add(post)
-    # postr(s)
+    print("\n")
 
-    #tree = construct(post)
-    # ord = postorder(root)
-    #print("\nTree: ", printLevelOrder(tree))
+    #Begins generating the report of the program
+    f = open("report.txt", "w")
+    f.write("Report for Detected Faults and SCOAP\n")
+    f.write("\nOriginal Boolean Expression: ")
+    f.write(expr)
+    f.write("\nInfix Expression: ")
+    f.write(infix)
+    f.write("\nPostfix Expression: ")
+    f.write(post)
+    f.write("\n\n")
+    f.close()
+    findFaults(post) #Calls the findFaults function in faults.py
