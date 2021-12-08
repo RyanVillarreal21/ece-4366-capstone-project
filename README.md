@@ -1,4 +1,5 @@
 # ece-4366-capstone-project
+# Created by Ryan Villarreal
 
 # This project is allows the user to input a boolean expression.
 # Once the expression is entered, a function will check that the user
@@ -16,6 +17,9 @@
 # the Combinational Observability. Once these functions have been evaluated, the netlist
 # is used to detect all of the Stuck-At faults. The program will then go through the order
 # of evaluating the netlist to find the Equivalent faults, Dominant faults, and the
-# Collapse faults
+# Collapse faults.
 #
-# Currently only the user input to postfix conversion function properly
+# Currently the user input to postfix conversion function properly. The program is also
+# able to use a function to evaluate the postfix expression and calculate the Stuck-At faults,
+# Equivalent faults, and Collapsed faults of the expression. Once that is all done, a report is
+# generated in a text file.
