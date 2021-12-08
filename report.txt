@@ -1,0 +1,9 @@
+Report for Detected Faults and SCOAP
+
+Original Boolean Expression: AB+C
+Infix Expression: A*B+C
+Postfix Expression: AB*C+
+
+Detected Stuck-At Faults: 6
+Detected Equivalent Faults: 2
+Detected Collapsed Faults: 4
